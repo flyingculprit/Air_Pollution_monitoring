@@ -120,7 +120,7 @@ def get_air_quality(lat, lon,city_name):
         data_store(components,city_name,aqi)
         # Check AQI level and trigger email if needed
         if aqi in [4, 5]:
-            recipient_email="thamizh5253@gmail.com"
+            recipient_email="sowbarnikas41@gmail.com"
             send_email_alert(city_name, aqi, recipient_email)
 
         aqi_description = {

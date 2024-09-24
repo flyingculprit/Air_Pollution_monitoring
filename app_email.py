@@ -65,8 +65,8 @@ def data_store(data,city_name,air_quality_index):
 
 # Function to send email alerts
 def send_email_alert(city_name, aqi_level, recipient_email):
-    sender_email = "gmail"  # Your email
-    sender_password = "mail pass" # Your email password
+    sender_email = "sowbarnikas41@gmail.com"  # Your email
+    sender_password = "ozbbhnvfxjyvowlb" # Your email password
 
     # Setup the MIME
     message = MIMEMultipart()

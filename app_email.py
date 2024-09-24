@@ -25,7 +25,7 @@ sheet = spreadsheet.sheet1
 app = Flask(__name__)
 
 # API Key and URLs
-API_KEY = 'API key'
+API_KEY = '45f72acf4cda05da1d7cc4800e56103b'
 GEO_URL = 'https://api.openweathermap.org/geo/1.0/direct'
 AIR_QUALITY_URL = 'http://api.openweathermap.org/data/2.5/air_pollution'
 

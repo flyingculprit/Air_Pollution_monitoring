@@ -33,15 +33,15 @@ input[type="text"] {
 
 button {
     padding: 10px;
-    background-color: #007BFF;
-    color: white;
+    background-color: #c13adc;
+    color: rgb(0, 0, 0);
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #8600b3;
 }
 
 .result {
@@ -84,14 +84,14 @@ tr:nth-child(even) {
     top: 20px;
     left: 20px;
     padding: 10px 30px;
-    background-color: #007BFF;
-    color: white;
+    background-color: #c13adc;
+    color: rgb(6, 6, 6);
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width:340px;
+    width:240px;
 }
 
 #history-btn:hover {
-    background-color: #0056b3;
+    background-color: #8600b3;
 }

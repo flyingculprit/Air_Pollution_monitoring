@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- History Button placed at the top left -->
+    <button id="history-btn" onclick="window.location.href='/history'">History</button>
+    <button id="predict-btn" onclick="window.location.href='/history'">Predict Next Day AQI</button>
+
+    <div class="container">
+        <h1>Air Pollution Monitoring System</h1>
+
+        <form method="POST">
+            <label for="city">Enter City Name:</label>
+            <input type="text" id="city" name="city" placeholder="City Name" required>
+            <!-- Button to fetch current AQI -->
+            <button type="submit" name="action" value="current">Get Current AQI</button>
+
+            <!-- Button to predict next day's AQI -->
+            <button type="submit" name="action" value="predict">Predict Next Day AQI</button>
+
+        </form>
+
+        <!-- Display the air quality information if available -->
+        {% if air_quality_info %}
+        <div class="result">
+            <h2>Result:</h2>
+            <h2>City Name: {{city}}</h2>
+            <p>{{ air_quality_info }}</p>
+            {% if components %}
+            <h3>Air Quality Components:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Value (µg/m³)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CO (Carbon Monoxide)</td>
+                        <td>{{ components.co }}</td>
+                    </tr>
+                    <tr>
+                        <td>NO₂ (Nitrogen Dioxide)</td>
+                        <td>{{ components.no2 }}</td>
+                    </tr>
+                    <tr>
+                        <td>O₃ (Ozone)</td>
+                        <td>{{ components.o3 }}</td>
+                    </tr>
+                    <tr>
+                        <td>SO₂ (Sulfur Dioxide)</td>
+                        <td>{{ components.so2 }}</td>
+                    </tr>
+                    <tr>
+                        <td>PM₂.₅ (Fine Particles)</td>
+                        <td>{{ components.pm2_5 }}</td>
+                    </tr>
+                    <tr>
+                        <td>NH₃ (Ammonia)</td>
+                        <td>{{ components.nh3 }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

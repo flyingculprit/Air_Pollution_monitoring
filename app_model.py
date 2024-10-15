@@ -16,7 +16,7 @@ import pandas as pd
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
 # Add the path to your service account key file
-creds = ServiceAccountCredentials.from_json_keyfile_name(r'E:filepath/credentials.json', scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name(r'E:path/credentials.json', scope)
 
 
 # Authorize and open the spreadsheet

@@ -25,7 +25,7 @@ sheet = spreadsheet.sheet1
 app = Flask(__name__)
 
 # API Key and URLs
-API_KEY = '45f72acf4cda05da1d7cc4800e56103b'
+API_KEY = 'API key'
 GEO_URL = 'https://api.openweathermap.org/geo/1.0/direct'
 AIR_QUALITY_URL = 'http://api.openweathermap.org/data/2.5/air_pollution'
 
@@ -65,8 +65,8 @@ def data_store(data,city_name,air_quality_index):
 
 # Function to send email alerts
 def send_email_alert(city_name, aqi_level, recipient_email):
-    sender_email = "sowbarnikas41@gmail.com"  # Your email
-    sender_password = "ozbbhnvfxjyvowlb" # Your email password
+    sender_email = "gmail"  # Your email
+    sender_password = "mail pass" # Your email password
 
     # Setup the MIME
     message = MIMEMultipart()
@@ -120,7 +120,7 @@ def get_air_quality(lat, lon,city_name):
         data_store(components,city_name,aqi)
         # Check AQI level and trigger email if needed
         if aqi in [4, 5]:
-            recipient_email="sowbarnikas41@gmail.com"
+            recipient_email="thamizh5253@gmail.com"
             send_email_alert(city_name, aqi, recipient_email)
 
         aqi_description = {

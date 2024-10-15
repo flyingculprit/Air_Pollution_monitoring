@@ -1,7 +1,0 @@
-Flask
-requests
-gspread
-oauth2client
-numpy
-pandas
-scikit-learn

@@ -10,6 +10,7 @@
 
     <!-- History Button placed at the top left -->
     <button id="history-btn" onclick="window.location.href='/history'">History</button>
+    <button id="predict-btn" onclick="window.location.href='/history'">Predict Next Day AQI</button>
 
     <div class="container">
         <h1>Air Pollution Monitoring System</h1>
@@ -17,7 +18,12 @@
         <form method="POST">
             <label for="city">Enter City Name:</label>
             <input type="text" id="city" name="city" placeholder="City Name" required>
-            <button type="submit">Check Live Data</button>
+            <!-- Button to fetch current AQI -->
+            <button type="submit" name="action" value="current">Get Current AQI</button>
+
+            <!-- Button to predict next day's AQI -->
+            <button type="submit" name="action" value="predict">Predict Next Day AQI</button>
+
         </form>
 
         <!-- Display the air quality information if available -->

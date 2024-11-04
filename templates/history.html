@@ -13,26 +13,26 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Carbon monoxide</th>
-                    <th>Nitrogen dioxide</th>
-                    <th>Ozone</th>
-                    <th>Sulphur dioxide</th>
-                    <th>Fine particles matter</th>
-                    <th>Ammonia</th>
-                    <th>Air Quality Index</th>
+                    <th>CO (Carbon Monoxide)</th>
+                    <th>NO₂ (Nitrogen Dioxide)</th>
+                    <th>O₃ (Ozone)</th>
+                    <th>SO₂ (Sulfur Dioxide)</th>
+                    <th>PM₂.₅ (Fine Particles)</th>
+                    <th>NH₃ (Ammonia)</th>
+                    <th>AQI</th>
                     <th>City Name</th>
                 </tr>
             </thead>
             <tbody>
                 {% for row in data %}
                 <tr>
-                    <td>{{ row['Carbon monoxide'] }}</td>
-                    <td>{{ row['Nitrogen dioxide'] }}</td>
-                    <td>{{ row['Ozone'] }}</td>
-                    <td>{{ row['Sulphur dioxide'] }}</td>
-                    <td>{{ row['Fine particles matter'] }}</td>
-                    <td>{{ row['Ammonia'] }}</td>
-                    <td>{{ row['Air Quality Index'] }}</td>
+                    <td>{{ row['CO (Carbon Monoxide)'] }}</td>
+                    <td>{{ row['NO₂ (Nitrogen Dioxide)'] }}</td>
+                    <td>{{ row['O₃ (Ozone)'] }}</td>
+                    <td>{{ row['SO₂ (Sulfur Dioxide)'] }}</td>
+                    <td>{{ row['PM₂.₅ (Fine Particles)'] }}</td>
+                    <td>{{ row['NH₃ (Ammonia)'] }}</td>
+                    <td>{{ row['AQI'] }}</td>
                     <td>{{ row['City Name'] }}</td>
                 </tr>
                 {% endfor %}

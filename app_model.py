@@ -13,15 +13,16 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 
 # Define the scope
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/spreadsheets",
+         "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
 
 # Add the path to your service account key file
-creds = ServiceAccountCredentials.from_json_keyfile_name(r'E:/Git/IT-Sowbarnika/final/Air_Pollution_monitoring-Thamiz/credentials.json', scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name(r'E:/Air_Pollution_monitoring/model-marker-440716-t1-44c4e6dcf699.json', scope)
 
 
 # Authorize and open the spreadsheet
 client = gspread.authorize(creds)
-spreadsheet = client.open("Air-Quality")
+spreadsheet = client.open("air-pollution")
 sheet = spreadsheet.sheet1
 
 app = Flask(__name__)
@@ -30,7 +31,7 @@ app = Flask(__name__)
 
 
 # Load the dataset
-data = pd.read_csv('air_quality_dataset.csv')
+data = pd.read_csv('E:/Air_Pollution_monitoring/air_quality_dataset.csv')
 
 # API Key and URLs
 API_KEY = '45f72acf4cda05da1d7cc4800e56103b'
@@ -218,6 +219,7 @@ def home():
 @app.route('/history')
 def get_history():
     data = sheet.get_all_records()
+    print(data)
     return render_template('history.html', data=data)
 
 

@@ -3,7 +3,10 @@ import smtplib
 import numpy as np
 import pandas as pd
 from flask import Flask, render_template, request
+from flask_cors import CORS
 import requests
+
+
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import gspread
@@ -11,13 +14,23 @@ from oauth2client.service_account import ServiceAccountCredentials
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 import pandas as pd
+from bs4 import BeautifulSoup
+
+
+
+
+# Define the hardware IP as a variable
+HARDWARE_IP = "http://ip of hardware"
+
+
 
 # Define the scope
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/spreadsheets",
          "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
 
 # Add the path to your service account key file
-creds = ServiceAccountCredentials.from_json_keyfile_name(r'E:/Air_Pollution_monitoring/model-marker-440716-t1-44c4e6dcf699.json', scope)
+# creds = ServiceAccountCredentials.from_json_keyfile_name(r'E:/Air_Pollution_monitoring/model-marker-440716-t1-44c4e6dcf699.json', scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name('C:/credentials.json', scope)
 
 
 # Authorize and open the spreadsheet
@@ -25,16 +38,16 @@ client = gspread.authorize(creds)
 spreadsheet = client.open("air-pollution")
 sheet = spreadsheet.sheet1
 
+
 app = Flask(__name__)
-
-
+CORS(app)
 
 
 # Load the dataset
-data = pd.read_csv('E:/Air_Pollution_monitoring/air_quality_dataset.csv')
+data = pd.read_csv('C:air_quality_dataset.csv')
 
 # API Key and URLs
-API_KEY = '45f72acf4cda05da1d7cc4800e56103b'
+API_KEY = '4s5ofw7b2aarcnfi4ccada05da1d7cc4800e56103badas'
 GEO_URL = 'https://api.openweathermap.org/geo/1.0/direct'
 AIR_QUALITY_URL = 'http://api.openweathermap.org/data/2.5/air_pollution'
 
@@ -45,6 +58,28 @@ city_list = ['Ahmedabad', 'Aizawl', 'Amaravati', 'Amritsar', 'Bengaluru', 'Bhopa
              'Kolkata', 'Lucknow', 'Mumbai', 'Patna', 'Shillong', 'Talcher',
              'Thiruvananthapuram', 'Visakhapatnam']
 
+#hardware data aqi
+
+def classify_aqi(sensor_value):
+    """Classify AQI based on the sensor value."""
+    aqi_description = {
+        1: {"quality": "Good", "color": "#4CAF50"},
+        2: {"quality": "Fair", "color": "#8BC34A"},
+        3: {"quality": "Moderate", "color": "#FFEB3B"},
+        4: {"quality": "Poor", "color": "#FF9800"},
+        5: {"quality": "Very Poor", "color": "#F44336"},
+    }
+
+    if sensor_value < 100:
+        return aqi_description[1]
+    elif 100 <= sensor_value < 200:
+        return aqi_description[2]
+    elif 200 <= sensor_value < 300:
+        return aqi_description[3]
+    elif 300 <= sensor_value < 400:
+        return aqi_description[4]
+    else:
+        return aqi_description[5]
 
 # Machine learning model for prediction
 def train_predict_model():
@@ -89,9 +124,9 @@ def data_store(data, city_name, air_quality_index):
 
 # Function to send email alerts
 def send_email_alert(city_name, aqi_level):
-    sender_email = "sowbarnikas41@gmail.com"  # Your email
-    sender_password = "ozbbhnvfxjyvowlb"  # Your email password
-    receiver_email = "sowbarnikas41@gmail.com"
+    sender_email = " "  # Your email
+    sender_password = " "  # Your email password
+    receiver_email = " "  # Receiver's email
 
     message = MIMEMultipart()
     message['From'] = sender_email
@@ -215,6 +250,38 @@ def home():
     return render_template('index.html')
 
 
+@app.route('/hardware')
+def get_hardware():
+    try:
+        # Fetch the data from the hardware API
+        response = requests.get(HARDWARE_IP)
+        # Parse the HTML content using BeautifulSoup
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        # Extract values from the HTML
+        sensor_value = float(soup.find('p', text=lambda t: t and "Sensor Value" in t).text.split(":")[1].strip())
+        voltage = soup.find('p', text=lambda t: t and "Voltage" in t).text.split(":")[1].strip()
+
+        # Classify AQI based on the sensor value
+        aqi_info = classify_aqi(sensor_value)
+
+        # Prepare data for rendering
+        data = {
+            "sensor_value": sensor_value,
+            "voltage": voltage,
+            "aqi_quality": aqi_info["quality"],
+            "aqi_color": aqi_info["color"]
+        }
+
+    except requests.exceptions.RequestException as e:
+        # Handle errors (e.g., connection issues or invalid responses)
+        data = {"error": "Unable to fetch hardware data", "details": str(e)}
+    except Exception as e:
+        # Handle parsing or other errors
+        data = {"error": "Error processing data", "details": str(e)}
+
+    # Render the template and pass the data
+    return render_template('hardware.html', data=data)
 
 @app.route('/history')
 def get_history():

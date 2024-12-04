@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardware Data</title>
+    <style>
+        .aqi-box {
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hardware Data</h1>
+    {% if data.error %}
+        <p>Error: {{ data.error }}</p>
+        <p>Details: {{ data.details }}</p>
+    {% else %}
+        <p><strong>Sensor Value:</strong> {{ data.sensor_value }}</p>
+        <p><strong>Voltage:</strong> {{ data.voltage }}</p>
+        <div class="aqi-box" style="background-color: {{ data.aqi_color }};">
+            <strong>AQI Quality:</strong> {{ data.aqi_quality }}
+        </div>
+    {% endif %}
+</body>
+</html>

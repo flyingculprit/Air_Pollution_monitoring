@@ -5,3 +5,5 @@ oauth2client
 numpy
 pandas
 scikit-learn
+flask_cors
+bs4

@@ -7,12 +7,17 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
+<div>
     <!-- History Button placed at the top left -->
     <button id="history-btn" onclick="window.location.href='/history'">History</button>
-    <button id="predict-btn" onclick="window.location.href='/history'">Predict Next Day AQI</button>
-
-    <div class="container">
+    
+   
+    <!-- <button id="predict-btn" onclick="window.location.href='/history'">Predict Next Day AQI</button> -->
+</div>
+<div>
+    <button class="top-right-btn" onclick="openHardwarePage()">Sensor Data</button>
+</div>
+  <div class="container">
         <h1>Air Pollution Monitoring System</h1>
 
         <form method="POST">
@@ -22,6 +27,7 @@
             <button type="submit" name="action" value="current">Get Current AQI</button>
             <!-- Button to predict next day's AQI -->
             <button type="submit" name="action" value="predict">Predict Next Day AQI</button>
+           
         </form>
 
         <!-- Display the air quality information if available -->
@@ -57,5 +63,11 @@
             <h2>Learn More About Air Quality</h2>
             <iframe width="560" height="315" src="https://www.youtube.com/embed/6IKaUTYWtvg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
+         <script>
+    function openHardwarePage() {
+      // Redirect to hardware.html
+      window.location.href = "/hardware";
+    }
+  </script>
 </body>
 </html>
